@@ -11,7 +11,6 @@ namespace Module.Core.Scripts.Editor {
             EditorGUILayout.Space();
             EditorStyles.label.fontStyle = origFontStyle;
             base.OnInspectorGUI();
-            Debug.Log(origFontStyle);
         }
     }
 }
