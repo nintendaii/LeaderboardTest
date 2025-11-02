@@ -4,11 +4,11 @@
 //of Sophun Games LTD is strictly prohibited and could be subject to legal action.
 
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Zenject;
 
 namespace SimplePopupManager
 {
@@ -17,6 +17,8 @@ namespace SimplePopupManager
     /// </summary>
     public class PopupManagerServiceService : IPopupManagerService
     {
+        [Inject] private readonly DiContainer _container;
+        
         private readonly Dictionary<string, GameObject> m_Popups = new();
 
         /// <summary>
@@ -25,7 +27,7 @@ namespace SimplePopupManager
         /// </summary>
         /// <param name="name">The name of the popup to open.</param>
         /// <param name="param">The parameters to initialize the popup with.</param>
-        public async void OpenPopup(string name, object param)
+        public async Task OpenPopup(string name, object param = null)
         {
             if (m_Popups.ContainsKey(name))
             {
@@ -69,7 +71,7 @@ namespace SimplePopupManager
 
                 popupObject.SetActive(false);
                 IPopupInitialization[] popupInitComponents = popupObject.GetComponents<IPopupInitialization>();
-
+                _container.InjectGameObject(popupObject);
                 foreach (IPopupInitialization component in popupInitComponents)
                 {
                     await component.Init(param);
