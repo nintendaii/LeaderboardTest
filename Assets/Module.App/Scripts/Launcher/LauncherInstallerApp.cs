@@ -11,13 +11,8 @@ namespace Module.App.Scripts.Launcher
         protected override void InstallComponents()
         {
             base.InstallComponents();
-            Container.Bind<LeaderboardModel>().AsTransient();
-            Container.Bind<LeaderboardView>().FromComponentInHierarchy().AsTransient();
-            Container.Bind<LeaderboardMVC>().FromComponentInHierarchy().AsTransient();
             
-            Container.Bind<MainMenuModel>().AsTransient();
-            Container.Bind<MainMenuView>().FromComponentInHierarchy().AsTransient();
-            Container.Bind<MainMenuMVC>().FromComponentInHierarchy().AsTransient();
+            Container.Bind<MainMenuController>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
 
         protected override void InstallServices()

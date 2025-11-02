@@ -446,7 +446,6 @@ GameObject:
   - component: {fileID: 1055490701}
   - component: {fileID: 1055490700}
   - component: {fileID: 1055490699}
-  - component: {fileID: 1055490704}
   - component: {fileID: 1055490703}
   m_Layer: 5
   m_Name: MainUI
@@ -547,22 +546,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1055490698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8801301ff7204f2db854aef87d69f521, type: 3}
+  m_Script: {fileID: 11500000, guid: 13dd59885c9e4388aff242f231599318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1055490704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055490698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94f7184c39eb43b19c16136ae961c6a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showLeaderboardButton: {fileID: 2012088723}
+  view:
+    showLeaderboardButton: {fileID: 2012088723}
 --- !u!1 &1586203242
 GameObject:
   m_ObjectHideFlags: 0

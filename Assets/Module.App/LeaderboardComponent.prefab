@@ -147,8 +147,7 @@ GameObject:
   - component: {fileID: 2609011185935925481}
   - component: {fileID: 2609011185935925482}
   - component: {fileID: 2609011185935925483}
-  - component: {fileID: 2609011185935925486}
-  - component: {fileID: 2609011185935925487}
+  - component: {fileID: 8693074069596769063}
   m_Layer: 5
   m_Name: LeaderboardComponent
   m_TagString: Untagged
@@ -240,7 +239,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2609011185935925486
+--- !u!114 &8693074069596769063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,25 +248,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2609011185935925476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bccb34e92c26480d9efe488bac1bf77f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f807c2b3a8f4ca0af06e57c99e0f46d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contentParent: {fileID: 2609011187059909842}
-  entryPrefab: {fileID: 0}
-  closeButton: {fileID: 2609011185949352776}
-  loadButton: {fileID: 8994274964430853357}
---- !u!114 &2609011185935925487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2609011185935925476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61775d60f1bc4f3f96c5f07e6dadd635, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  view:
+    contentParent: {fileID: 0}
+    entryPrefab: {fileID: 0}
+    closeButton: {fileID: 2609011185949352776}
+    loadButton: {fileID: 8994274964430853357}
 --- !u!1 &2609011185949352778
 GameObject:
   m_ObjectHideFlags: 0

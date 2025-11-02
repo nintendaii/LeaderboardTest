@@ -1,16 +1,7 @@
-using System.Collections.Generic;
-using Module.Core.MVC;
-using Module.Core.Scripts.MVC;
 using UnityEngine;
 
 namespace Module.App.Scripts.Controllers.Leaderboard
 {
-    [System.Serializable]
-    public class LeaderboardModel : ModelBase
-    {
-        public List<LeaderboardEntry> Entries { get; } = new();
-    }
-
     [System.Serializable]
     public class LeaderboardEntry
     {

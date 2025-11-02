@@ -1,33 +1,41 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Module.App.Scripts.CommandSignal;
 using Module.App.Scripts.Services;
 using Module.Common.Scripts;
-using Module.Core.Scripts.MVC;
+using Module.Core.MVC;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Module.App.Scripts.Controllers.Leaderboard
 {
-    public class LeaderboardController : ControllerBase<LeaderboardModel, LeaderboardView>
+    [Serializable]
+    public class LeaderboardModel : ModelBase
+    {
+        public List<LeaderboardEntry> Entries { get; } = new();
+    }
+    
+    [Serializable]
+    public class LeaderboardView : ViewBase
+    {
+        [SerializeField] public Transform contentParent;
+        [SerializeField] public GameObject entryPrefab;
+        [SerializeField] public Button closeButton;
+        [SerializeField] public Button loadButton;
+    }
+
+    public class LeaderboardController : ComponentControllerBase<LeaderboardModel, LeaderboardView>
     {
         [Inject] private readonly LeaderboardService _service;
-
-        public LeaderboardController(
-            LeaderboardModel model,
-            LeaderboardView view,
-            SignalBus signalBus,
-            DiContainer container)
-            : base(model, view, signalBus, container)
-        {
-            Debug.Log($"InConstructor - {view.name}");
-        }
 
         public override void Initialize()
         {
             Debug.Log("Initialized");
             base.Initialize();
-            View.OnCloseEvent += ViewOnOnCloseEvent;
-            View.OnLoadLeaderboardEvent += ViewOnOnLoadLeaderboardEvent;
+            View.closeButton.onClick.AddListener(ViewOnOnCloseEvent);
+            View.loadButton.onClick.AddListener(ViewOnOnLoadLeaderboardEvent);
         }
 
         private async void ViewOnOnLoadLeaderboardEvent()
@@ -51,15 +59,15 @@ namespace Module.App.Scripts.Controllers.Leaderboard
             Model.Entries.Clear();
             Model.Entries.AddRange(entries);
             //View.Refresh(Model);
-            Show();
+            ShowComponent();
         }
 
         public override void Dispose()
         {
             Debug.Log("Dispose");
             base.Dispose();
-            View.OnCloseEvent -= ViewOnOnCloseEvent;
-            View.OnLoadLeaderboardEvent -= ViewOnOnLoadLeaderboardEvent;
+            View.closeButton.onClick.RemoveListener(ViewOnOnCloseEvent);
+            View.loadButton.onClick.RemoveListener(ViewOnOnLoadLeaderboardEvent);
         }
     }
 }

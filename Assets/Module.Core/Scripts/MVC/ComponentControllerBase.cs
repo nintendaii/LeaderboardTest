@@ -1,5 +1,4 @@
 using System;
-using Module.Core.Scripts.MVC;
 using Module.Core.Utilities;
 using UnityEngine;
 

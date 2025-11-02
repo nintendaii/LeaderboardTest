@@ -1,41 +1,37 @@
+using System;
 using System.Threading.Tasks;
 using Module.App.Scripts.CommandSignal;
 using Module.App.Scripts.Services;
 using Module.Common.Scripts;
-using Module.Core.Scripts.MVC;
+using Module.Core.MVC;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Module.App.Scripts.Controllers.Leaderboard
 {
-    public class MainMenuController : ControllerBase<MainMenuModel, MainMenuView>
+    [Serializable]
+    public class MainMenuView : ViewBase
     {
-        private SignalBus _signalBus;
-
-        public MainMenuController(
-            MainMenuModel model,
-            MainMenuView view,
-            SignalBus signalBus,
-            DiContainer container)
-            : base(model, view, signalBus, container)
-        {
-            _signalBus = signalBus;
-        }
-
+        [SerializeField] public Button showLeaderboardButton;
+    }
+    public class MainMenuController : ComponentControllerBase<ModelBase, MainMenuView>
+    {
         public override void Initialize()
         {
             base.Initialize();
-            View.OnShowLeaderboardEvent += ViewOnOnShowLeaderboardEvent;
+            Debug.Log("ININ");
+            View.showLeaderboardButton.onClick.AddListener(ViewOnOnShowLeaderboardEvent);
         }
 
         private void ViewOnOnShowLeaderboardEvent()
         {
-            _signalBus.Fire(new SignalOpenPopup(GlobalConstants.Addressable.LEADERBOARD_ADDRESSABLE_PATH, null));
+            SignalBus.Fire(new SignalOpenPopup(GlobalConstants.Addressable.LEADERBOARD_ADDRESSABLE_PATH, null));
         }
 
         public override void Dispose()
         {
-            View.OnShowLeaderboardEvent -= ViewOnOnShowLeaderboardEvent;
+            View.showLeaderboardButton.onClick.RemoveListener(ViewOnOnShowLeaderboardEvent);
             base.Dispose();
         }
     }
