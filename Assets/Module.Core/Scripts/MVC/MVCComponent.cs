@@ -9,7 +9,7 @@ namespace Module.Core.Scripts.MVC
         where TView : ViewBase
         where TController : ControllerBase<TModel, TView>
     {
-        private TController _controller;
+        protected TController _controller;
 
         [Inject]
         public void Construct(TModel model, TView view, SignalBus signalBus, DiContainer container)
