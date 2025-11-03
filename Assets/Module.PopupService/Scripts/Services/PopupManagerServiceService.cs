@@ -3,6 +3,7 @@
 //Any use, reproduction, distribution, or release of this code or documentation without the express permission
 //of Sophun Games LTD is strictly prohibited and could be subject to legal action.
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -17,7 +18,6 @@ namespace SimplePopupManager
     /// </summary>
     public class PopupManagerServiceService : IPopupManagerService
     {
-        [Inject] private readonly DiContainer _container;
         
         private readonly Dictionary<string, GameObject> m_Popups = new();
 
@@ -27,15 +27,22 @@ namespace SimplePopupManager
         /// </summary>
         /// <param name="name">The name of the popup to open.</param>
         /// <param name="param">The parameters to initialize the popup with.</param>
-        public async Task OpenPopup(string name, object param = null)
+        public async Task<GameObject> OpenPopup(string name, object param = null)
         {
             if (m_Popups.ContainsKey(name))
             {
                 Debug.LogError($"Popup with name {name} is already shown");
-                return;
+                return m_Popups[name]; // Return existing if already open
             }
-            
-            await LoadPopup(name, param);
+
+            var popup = await LoadPopup(name, param);
+
+            if (popup != null)
+            {
+                Debug.Log($"Popup '{name}' opened successfully.");
+            }
+
+            return popup; // ← Returns the actual GameObject (or null on fail)
         }
 
         /// <summary>
@@ -60,30 +67,39 @@ namespace SimplePopupManager
         /// </summary>
         /// <param name="name">The name of the popup to load.</param>
         /// <param name="param">The parameters to initialize the popup with.</param>
-        private async Task LoadPopup(string name, object param)
+        private async Task<GameObject> LoadPopup(string name, object param = null)
         {
-            AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync(name);
+            var handle = Addressables.InstantiateAsync(name);
             await handle.Task;
 
-            if (handle.Status == AsyncOperationStatus.Succeeded)
+            if (handle.Status != AsyncOperationStatus.Succeeded)
             {
-                GameObject popupObject = handle.Result;
+                Debug.LogError($"Failed to load Popup with name: {name}");
+                return null;
+            }
 
-                popupObject.SetActive(false);
-                IPopupInitialization[] popupInitComponents = popupObject.GetComponents<IPopupInitialization>();
-                _container.InjectGameObject(popupObject);
-                foreach (IPopupInitialization component in popupInitComponents)
+            GameObject popupObject = handle.Result;
+            popupObject.SetActive(false);
+
+            try
+            {
+                // Initialize components
+                var initComponents = popupObject.GetComponents<IPopupInitialization>();
+                foreach (var component in initComponents)
                 {
                     await component.Init(param);
                 }
 
                 popupObject.SetActive(true);
+                m_Popups[name] = popupObject;
 
-                m_Popups.Add(name, popupObject);
+                return popupObject;
             }
-            else
+            catch (Exception ex)
             {
-                Debug.LogError($"Failed to load Popup with name {name}");
+                Debug.LogError($"Failed to initialize popup '{name}': {ex.Message}");
+                Addressables.ReleaseInstance(popupObject);
+                return null;
             }
         }
     }

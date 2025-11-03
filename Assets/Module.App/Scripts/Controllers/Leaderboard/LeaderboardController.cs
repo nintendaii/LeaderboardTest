@@ -5,6 +5,7 @@ using Module.App.Scripts.CommandSignal;
 using Module.App.Scripts.Services;
 using Module.Common.Scripts;
 using Module.Core.MVC;
+using SimplePopupManager;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -26,7 +27,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard
         [SerializeField] public Button loadButton;
     }
 
-    public class LeaderboardController : ComponentControllerBase<LeaderboardModel, LeaderboardView>
+    public class LeaderboardController : ComponentControllerBase<LeaderboardModel, LeaderboardView>, IPopupInitialization
     {
         [Inject] private readonly LeaderboardService _service;
 
@@ -68,6 +69,12 @@ namespace Module.App.Scripts.Controllers.Leaderboard
             base.Dispose();
             View.closeButton.onClick.RemoveListener(ViewOnOnCloseEvent);
             View.loadButton.onClick.RemoveListener(ViewOnOnLoadLeaderboardEvent);
+        }
+
+        public Task Init(object param)
+        {
+            return Task.Delay(1);
+            //throw new NotImplementedException();
         }
     }
 }

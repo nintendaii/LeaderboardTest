@@ -4,6 +4,7 @@
 //of Sophun Games LTD is strictly prohibited and could be subject to legal action.
 
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace SimplePopupManager
 {
@@ -15,7 +16,7 @@ namespace SimplePopupManager
         /// </summary>
         /// <param name="name">The name of the popup to open.</param>
         /// <param name="param">The parameters to initialize the popup with.</param>
-        Task OpenPopup(string name, object param);
+        Task<GameObject> OpenPopup(string name, object param);
 
         /// <summary>
         ///     Closes a popup by its name.
