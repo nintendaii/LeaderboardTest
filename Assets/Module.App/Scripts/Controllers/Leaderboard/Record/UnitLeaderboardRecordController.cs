@@ -12,6 +12,8 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
     public class UnitLeaderboardRecordModel : ModelBase
     {
         public LeaderboardRecordData LeaderboardRecordData;
+        public float DefaultScoreFontSize;
+        public float DefaultNameFontSize;
     }
 
     [Serializable]
@@ -30,6 +32,15 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             playerName.fontSize *= Utils.Utils.GetScaleByRank(data.type);
             playerScore.fontSize *= Utils.Utils.GetScaleByRank(data.type);
         }
+
+        public void Reset(float defaultScoreSize, float defaultNameSize)
+        {
+            playerName.text = string.Empty;
+            playerScore.text = string.Empty;
+            recordBackground.color = Color.white;
+            playerName.fontSize = defaultNameSize;
+            playerScore.fontSize = defaultScoreSize;
+        }
     }
     
     public class UnitLeaderboardRecordController: ComponentControllerBase<UnitLeaderboardRecordModel, UnitLeaderboardRecordView>
@@ -37,7 +48,14 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
         public void SetUp(LeaderboardRecordData leaderboardRecordData)
         {
             Model.LeaderboardRecordData = leaderboardRecordData;
+            Model.DefaultScoreFontSize = View.playerScore.fontSize;
+            Model.DefaultNameFontSize = View.playerName.fontSize;
             View.SetUp(leaderboardRecordData);
+        }
+
+        public void Reset()
+        {
+            View.Reset(Model.DefaultScoreFontSize, Model.DefaultNameFontSize);
         }
     }
     

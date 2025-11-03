@@ -1,6 +1,7 @@
 using Module.App.Scripts.CommandSignal;
 using Module.App.Scripts.Controllers.Leaderboard;
 using Module.App.Scripts.Controllers.Leaderboard.Record;
+using Module.App.Scripts.Controllers.MainMenu;
 using Module.App.Scripts.Factory;
 using Module.App.Scripts.Services;
 using Module.Core.Scripts.Launcher;
@@ -46,6 +47,8 @@ namespace Module.App.Scripts.Launcher
             Container.BindSignal<SignalOpenLeaderboardPopup>().ToMethod<CommandOpenLeaderboardPopup>(command => command.Execute).FromNew();
             Container.DeclareSignal<SignalInitLeaderboard>();
             Container.BindSignal<SignalInitLeaderboard>().ToMethod<CommandInitLeaderboard>(command => command.Execute).FromNew();
+            Container.DeclareSignal<SignalCloseLeaderboardPopup>();
+            Container.BindSignal<SignalCloseLeaderboardPopup>().ToMethod<CommandCloseLeaderboardPopup>(command => command.Execute).FromNew();
         }
     }
 }

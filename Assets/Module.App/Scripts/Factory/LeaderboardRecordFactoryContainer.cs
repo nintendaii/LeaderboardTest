@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Module.App.Scripts.Controllers.Leaderboard.Record;
 using Module.App.Scripts.Data;
 using Module.Core.MVC;
@@ -9,38 +10,51 @@ namespace Module.App.Scripts.Factory
 {
     public class LeaderboardRecordFactoryContainer: ControllerMonoBase
     {
-        [Inject] private readonly UnitLeaderboardRecordFactory unitLeaderboardRecordControllerFactory;
+        [Inject] private readonly UnitLeaderboardRecordFactory _unitLeaderboardRecordControllerFactory;
         
-        private IObjectPool<UnitLeaderboardRecordController> objectPool;
+        private IObjectPool<UnitLeaderboardRecordController> _objectPool;
+        private List<UnitLeaderboardRecordController> _unitsList = new();
 
         public override void Initialize()
         {
             base.Initialize();
-            objectPool = new ObjectPool<UnitLeaderboardRecordController>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
+            _objectPool = new ObjectPool<UnitLeaderboardRecordController>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
                 OnDestroyPoolObject);
         }
 
         public override void Dispose()
         {
-            objectPool.Clear();
+            _objectPool.Clear();
             base.Dispose();
         }
 
         public UnitLeaderboardRecordController CreateRecord(LeaderboardRecordData recordData, Transform parent)
         {
-            var unit = objectPool.Get();
-            unit.Transform.SetParent(parent); //no
+            var unit = _objectPool.Get();
+            _unitsList.Add(unit);
+            unit.Transform.SetParent(parent);
             unit.Transform.localScale = Vector3.one;
             return unit;
         }
 
+        public void ClearContainer()
+        {
+            foreach (var u in _unitsList)
+            {
+                u.Transform.SetParent(Transform);
+                ReleaseRecord(u);
+            }
+            _unitsList.Clear();
+        }
+
         public void ReleaseRecord(UnitLeaderboardRecordController recordController)
         {
-            objectPool.Release(recordController);
+            _objectPool.Release(recordController);
+            recordController.Reset();
         }
         private UnitLeaderboardRecordController CreatePooledItem()
         {
-            var unit = unitLeaderboardRecordControllerFactory.Create();
+            var unit = _unitLeaderboardRecordControllerFactory.Create();
             unit.Transform.SetParent(Transform);
             return unit;
         }

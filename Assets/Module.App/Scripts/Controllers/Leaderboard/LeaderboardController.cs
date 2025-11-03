@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Module.App.Scripts.CommandSignal;
 using Module.App.Scripts.Data;
-using Module.App.Scripts.Services;
 using Module.Common.Scripts;
 using Module.Core.MVC;
 using SimplePopupManager;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Module.App.Scripts.Controllers.Leaderboard
 {
@@ -24,7 +22,6 @@ namespace Module.App.Scripts.Controllers.Leaderboard
     {
         [SerializeField] public Transform contentParent;
         [SerializeField] public Button closeButton;
-        [SerializeField] public Button loadButton;
     }
 
     public class LeaderboardController : ComponentControllerBase<LeaderboardModel, LeaderboardView>, IPopupInitialization
@@ -35,12 +32,11 @@ namespace Module.App.Scripts.Controllers.Leaderboard
             base.Initialize();
             View.closeButton.onClick.AddListener(ViewOnOnCloseEvent);
         }
-        public Transform GetSpawnParent() => View.contentParent;
         
         private void ViewOnOnCloseEvent()
         {
             Debug.Log("InCloseEvent");
-            SignalBus.Fire(new SignalClosePopup(GlobalConstants.Addressable.LEADERBOARD_ADDRESSABLE_PATH));
+            SignalBus.Fire(new SignalCloseLeaderboardPopup());
         }
 
         public override void Dispose()

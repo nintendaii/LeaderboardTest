@@ -1,14 +1,10 @@
 using System;
-using System.Threading.Tasks;
 using Module.App.Scripts.CommandSignal;
-using Module.App.Scripts.Services;
-using Module.Common.Scripts;
 using Module.Core.MVC;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
-namespace Module.App.Scripts.Controllers.Leaderboard
+namespace Module.App.Scripts.Controllers.MainMenu
 {
     [Serializable]
     public class MainMenuView : ViewBase
