@@ -36,10 +36,6 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
     {
         public void SetUp(LeaderboardRecordData leaderboardRecordData)
         {
-            Debug.Log(Model);
-            Debug.Log(View);
-            Debug.Log(Model.LeaderboardRecordData);
-            Debug.Log(leaderboardRecordData);
             Model.LeaderboardRecordData = leaderboardRecordData;
             View.SetUp(leaderboardRecordData);
         }
