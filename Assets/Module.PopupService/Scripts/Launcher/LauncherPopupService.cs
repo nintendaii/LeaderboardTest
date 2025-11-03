@@ -1,5 +1,5 @@
 using Module.Core.Scripts.Launcher;
-using Module.PopupService.Scripts.Services.Addressable;
+using Module.PopupService.Scripts.Addressable;
 using SimplePopupManager;
 
 namespace Module.PopupService.Scripts.Launcher

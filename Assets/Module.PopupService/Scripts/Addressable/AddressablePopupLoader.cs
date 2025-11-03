@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Module.PopupService.Scripts.Services.Addressable
+namespace Module.PopupService.Scripts.Addressable
 {
     public class AddressablePopupLoader : IAddressableLoader
     {

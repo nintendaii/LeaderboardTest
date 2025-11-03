@@ -42,6 +42,10 @@ namespace Module.App.Scripts.Launcher
             Container.BindSignal<SignalOpenPopup>().ToMethod<CommandOpenPopup>(command => command.Execute).FromNew();
             Container.DeclareSignal<SignalClosePopup>();
             Container.BindSignal<SignalClosePopup>().ToMethod<CommandClosePopup>(command => command.Execute).FromNew();
+            Container.DeclareSignal<SignalOpenLeaderboardPopup>();
+            Container.BindSignal<SignalOpenLeaderboardPopup>().ToMethod<CommandOpenLeaderboardPopup>(command => command.Execute).FromNew();
+            Container.DeclareSignal<SignalInitLeaderboard>();
+            Container.BindSignal<SignalInitLeaderboard>().ToMethod<CommandInitLeaderboard>(command => command.Execute).FromNew();
         }
     }
 }

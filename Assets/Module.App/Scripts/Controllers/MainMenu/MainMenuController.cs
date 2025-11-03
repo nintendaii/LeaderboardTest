@@ -26,7 +26,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard
 
         private void ViewOnOnShowLeaderboardEvent()
         {
-            SignalBus.Fire(new SignalOpenPopup(GlobalConstants.Addressable.LEADERBOARD_ADDRESSABLE_PATH, null));
+            SignalBus.Fire(new SignalOpenLeaderboardPopup());
         }
 
         public override void Dispose()

@@ -16,7 +16,7 @@ namespace SimplePopupManager
         /// </summary>
         /// <param name="name">The name of the popup to open.</param>
         /// <param name="param">The parameters to initialize the popup with.</param>
-        Task<GameObject> OpenPopup(string name, object param);
+        Task OpenPopup(string name, object param);
 
         /// <summary>
         ///     Closes a popup by its name.

@@ -3,7 +3,7 @@ using SimplePopupManager;
 using UnityEngine;
 using Zenject;
 
-namespace Module.PopupService.Scripts.Services.Addressable
+namespace Module.PopupService.Scripts.Addressable
 {
     public class ZenjectPopupInitializer : IAddressableInjection
     {

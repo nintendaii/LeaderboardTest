@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Module.PopupService.Scripts.Services.Addressable;
+using Module.PopupService.Scripts.Addressable;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -29,12 +29,11 @@ namespace SimplePopupManager
             _injector = injector;
         }
 
-        public async Task<GameObject> OpenPopup(string name, object param)
+        public async Task OpenPopup(string name, object param)
         {
             if (_popups.ContainsKey(name))
             {
                 Debug.LogError($"Popup with name {name} already open.");
-                return _popups[name];
             }
 
             try
@@ -42,12 +41,10 @@ namespace SimplePopupManager
                 var popup = await _loader.LoadAsync(name);
                 await _injector.Initialize(popup, param);
                 _popups[name] = popup;
-                return popup;
             }
             catch (Exception ex)
             {
                 Debug.LogError($"Failed to open popup {name}: {ex}");
-                return null;
             }
         }
 
