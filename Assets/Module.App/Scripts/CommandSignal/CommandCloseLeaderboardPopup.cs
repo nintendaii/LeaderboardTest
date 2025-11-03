@@ -8,11 +8,11 @@ namespace Module.App.Scripts.CommandSignal
     public class CommandCloseLeaderboardPopup: ICommand
     {
         [Inject] private readonly SignalBus _signalBus;
-        [Inject] private readonly LeaderboardRecordFactoryContainer _leaderboardRecordFactory;
+        [Inject] private readonly LeaderboardRecordPooledFactory _leaderboardRecordPooledFactory;
         
         public void Execute()
         {
-            _leaderboardRecordFactory.ClearContainer();
+            _leaderboardRecordPooledFactory.ReleaseContainer();
             _signalBus.Fire(new SignalClosePopup(GlobalConstants.Addressable.LEADERBOARD_ADDRESSABLE_PATH));
         }
     }

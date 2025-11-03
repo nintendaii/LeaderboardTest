@@ -1,5 +1,6 @@
 using System;
 using Module.App.Scripts.Data;
+using Module.App.Scripts.Factory;
 using Module.Core.MVC;
 using TMPro;
 using UnityEngine;
@@ -43,9 +44,9 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
         }
     }
     
-    public class UnitLeaderboardRecordController: ComponentControllerBase<UnitLeaderboardRecordModel, UnitLeaderboardRecordView>
+    public class LeaderboardRecordController: ComponentControllerBase<UnitLeaderboardRecordModel, UnitLeaderboardRecordView>, IFactoryUnitResettable, IFactoryUnitInitializable<LeaderboardRecordData>
     {
-        public void SetUp(LeaderboardRecordData leaderboardRecordData)
+        public void InitializeUnit(LeaderboardRecordData leaderboardRecordData)
         {
             Model.LeaderboardRecordData = leaderboardRecordData;
             Model.DefaultScoreFontSize = View.playerScore.fontSize;
@@ -53,13 +54,13 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             View.SetUp(leaderboardRecordData);
         }
 
-        public void Reset()
+        public void ResetUnit()
         {
             View.Reset(Model.DefaultScoreFontSize, Model.DefaultNameFontSize);
         }
     }
     
-    public class UnitLeaderboardRecordFactory : PlaceholderFactory<UnitLeaderboardRecordController>
+    public class UnitLeaderboardRecordFactory : PlaceholderFactory<LeaderboardRecordController>
     {
     }
 }

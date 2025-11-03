@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Module.Core.MVC {
     public abstract class ComponentControllerBase : ComponentControllerBase<ModelBase, ViewBase> { }
     
-    public abstract class ComponentControllerBase<TModel, TView> : ControllerMonoBase where TModel : ModelBase where TView : ViewBase {
+    public abstract class ComponentControllerBase<TModel, TView> : ControllerMonoBase, IHideComponent, IShowComponent where TModel : ModelBase where TView : ViewBase {
         [SerializeField] private TModel model = default;
         [SerializeField] private TView view = default;
         

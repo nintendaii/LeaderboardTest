@@ -12,13 +12,13 @@ namespace Module.App.Scripts.Launcher
 {
     public class LauncherInstallerApp: LauncherInstaller
     {
-        [SerializeField] private UnitLeaderboardRecordController _unitLeaderboardRecordController;
+        [SerializeField] private LeaderboardRecordController leaderboardRecordController;
         protected override void InstallComponents()
         {
             base.InstallComponents();
             
             Container.Bind<MainMenuController>().FromComponentInHierarchy().AsSingle().NonLazy();
-            Container.Bind<LeaderboardRecordFactoryContainer>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
+            Container.Bind<LeaderboardRecordPooledFactory>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
         }
 
         protected override void InstallServices()
@@ -31,8 +31,8 @@ namespace Module.App.Scripts.Launcher
         protected override void InstallFactory()
         {
             base.InstallFactory();
-            Container.BindFactory<UnitLeaderboardRecordController, UnitLeaderboardRecordFactory>()
-                .FromComponentInNewPrefab(_unitLeaderboardRecordController);
+            Container.BindFactory<LeaderboardRecordController, UnitLeaderboardRecordFactory>()
+                .FromComponentInNewPrefab(leaderboardRecordController);
         }
 
         protected override void InstallCommandSignals()

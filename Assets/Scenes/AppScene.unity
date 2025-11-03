@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740d958169af464e86b53449abe18d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitLeaderboardRecordController: {fileID: 995112009625784125, guid: f76689803a6e84b298bf84dada0b9959, type: 3}
+  leaderboardRecordController: {fileID: 995112009625784125, guid: f76689803a6e84b298bf84dada0b9959, type: 3}
 --- !u!114 &238760773
 MonoBehaviour:
   m_ObjectHideFlags: 0

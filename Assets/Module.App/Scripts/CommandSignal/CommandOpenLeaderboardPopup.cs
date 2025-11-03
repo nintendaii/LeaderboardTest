@@ -10,7 +10,7 @@ namespace Module.App.Scripts.CommandSignal
     {
         [Inject] private SignalBus _signalBus;
         [Inject] private LeaderboardService _leaderboardService;
-        [Inject] private LeaderboardRecordFactoryContainer _leaderboardRecordFactory;
+        [Inject] private LeaderboardRecordPooledFactory _leaderboardRecordPooledFactory;
         
         public async void Execute()
         {

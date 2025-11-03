@@ -16,7 +16,6 @@ namespace Module.App.Scripts.Controllers.MainMenu
         public override void Initialize()
         {
             base.Initialize();
-            Debug.Log("ININ");
             View.showLeaderboardButton.onClick.AddListener(ViewOnOnShowLeaderboardEvent);
         }
 

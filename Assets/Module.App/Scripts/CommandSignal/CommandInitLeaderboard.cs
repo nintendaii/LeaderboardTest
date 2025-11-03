@@ -9,7 +9,7 @@ namespace Module.App.Scripts.CommandSignal
 {
     public class CommandInitLeaderboard: ICommandWithParameter
     {
-        [Inject] private LeaderboardRecordFactoryContainer _leaderboardRecordFactory;
+        [Inject] private LeaderboardRecordPooledFactory _leaderboardRecordPooledFactory;
         
         public void Execute(ISignal signal)
         {
@@ -22,8 +22,7 @@ namespace Module.App.Scripts.CommandSignal
             }
             foreach (var d in data)
             {
-                var record = _leaderboardRecordFactory.CreateRecord(d, param.ParentTransform);
-                record.SetUp(d);
+                var record = _leaderboardRecordPooledFactory.CreateRecord(d, param.ParentTransform);
             }
         }
     }
