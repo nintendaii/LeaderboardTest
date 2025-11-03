@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Module.App.Scripts.CommandSignal;
+using Module.App.Scripts.Data;
 using Module.App.Scripts.Services;
 using Module.Common.Scripts;
 using Module.Core.MVC;
@@ -15,14 +16,13 @@ namespace Module.App.Scripts.Controllers.Leaderboard
     [Serializable]
     public class LeaderboardModel : ModelBase
     {
-        public List<LeaderboardEntry> Entries { get; } = new();
+        public List<LeaderboardRecordData> Entries { get; } = new();
     }
     
     [Serializable]
     public class LeaderboardView : ViewBase
     {
         [SerializeField] public Transform contentParent;
-        [SerializeField] public GameObject entryPrefab;
         [SerializeField] public Button closeButton;
         [SerializeField] public Button loadButton;
     }
@@ -36,13 +36,15 @@ namespace Module.App.Scripts.Controllers.Leaderboard
             Debug.Log("Initialized");
             base.Initialize();
             View.closeButton.onClick.AddListener(ViewOnOnCloseEvent);
-            View.loadButton.onClick.AddListener(ViewOnOnLoadLeaderboardEvent);
+            //View.loadButton.onClick.AddListener(ViewOnOnLoadLeaderboardEvent);
         }
 
         private async void ViewOnOnLoadLeaderboardEvent()
         {
             await LoadAndShowAsync();
         }
+
+        public Transform GetSpawnParent() => View.contentParent;
         
         private void ViewOnOnCloseEvent()
         {
@@ -68,7 +70,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard
             Debug.Log("Dispose");
             base.Dispose();
             View.closeButton.onClick.RemoveListener(ViewOnOnCloseEvent);
-            View.loadButton.onClick.RemoveListener(ViewOnOnLoadLeaderboardEvent);
+            //View.loadButton.onClick.RemoveListener(ViewOnOnLoadLeaderboardEvent);
         }
 
         public Task Init(object param)
