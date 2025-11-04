@@ -17,31 +17,31 @@ namespace Module.PopupService.Scripts.Services
     public class PopupManagerService : IPopupManagerService
     {
         private readonly IAddressableLoader _loader;
-        private readonly IAddressableInjection _injector;
         private readonly Dictionary<string, GameObject> _popups = new();
 
-        public PopupManagerService(IAddressableLoader loader, IAddressableInjection injector)
+        public PopupManagerService(IAddressableLoader loader)
         {
             _loader = loader;
-            _injector = injector;
         }
 
-        public async Task OpenPopup(string name, object param)
+        public async Task<GameObject> OpenPopup(string name)
         {
-            if (_popups.ContainsKey(name))
+            if (_popups.TryGetValue(name, out var existingPopup))
             {
-                Debug.LogError($"Popup with name {name} already open.");
+                Debug.LogWarning($"Popup '{name}' is already open.");
+                return existingPopup;
             }
 
             try
             {
                 var popup = await _loader.LoadAsync(name);
-                await _injector.Initialize(popup, param);
                 _popups[name] = popup;
+                return popup;
             }
             catch (Exception ex)
             {
                 Debug.LogError($"Failed to open popup {name}: {ex}");
+                return null;
             }
         }
 
