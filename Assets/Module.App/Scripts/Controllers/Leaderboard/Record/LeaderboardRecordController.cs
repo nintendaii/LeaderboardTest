@@ -20,7 +20,8 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
     [Serializable]
     public class UnitLeaderboardRecordView : ViewBase
     {
-        [SerializeField] public Image avatarImage;
+        [SerializeField] public RawImage avatarRawImage;
+        [SerializeField] public Image loaderImage;
         [SerializeField] public TMP_Text playerName;
         [SerializeField] public TMP_Text playerScore;
         [SerializeField] public Image recordBackground;
@@ -42,6 +43,12 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             playerName.fontSize = defaultNameSize;
             playerScore.fontSize = defaultScoreSize;
         }
+
+        public void ToggleAvatarLoading(bool isLoading)
+        {
+            loaderImage.enabled = isLoading;
+            avatarRawImage.enabled = !isLoading;
+        }
     }
     
     public class LeaderboardRecordController: ComponentControllerBase<UnitLeaderboardRecordModel, UnitLeaderboardRecordView>, IFactoryUnitResettable, IFactoryUnitInitializable<LeaderboardRecordData>
@@ -52,11 +59,18 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             Model.DefaultScoreFontSize = View.playerScore.fontSize;
             Model.DefaultNameFontSize = View.playerName.fontSize;
             View.SetUp(leaderboardRecordData);
+            View.ToggleAvatarLoading(true);
         }
 
         public void ResetUnit()
         {
             View.Reset(Model.DefaultScoreFontSize, Model.DefaultNameFontSize);
+        }
+
+        public void SetAvatar(Texture2D avatarTexture2D)
+        {
+            View.ToggleAvatarLoading(false);
+            View.avatarRawImage.texture = avatarTexture2D;
         }
     }
     

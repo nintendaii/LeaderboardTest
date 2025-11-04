@@ -7,6 +7,7 @@ namespace Module.Common.Scripts
         public static class Resources
         {
             public static readonly string LEADERBOARD_JSON_PATH = "Leaderboard";
+            public static readonly string AVATAR_CACHE_FOLDER_PATH = "AvatarCache";
         }
         
         public static class Addressable

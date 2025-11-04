@@ -25,6 +25,9 @@ namespace Module.App.Scripts.Launcher
         {
             base.InstallServices();
             Container.Bind<LeaderboardService>().AsSingle();
+            Container.Bind<IAvatarCacheService>()
+                .To<AvatarCacheService>()
+                .AsSingle();
         }
 
 
