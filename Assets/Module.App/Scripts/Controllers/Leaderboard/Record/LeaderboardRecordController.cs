@@ -16,6 +16,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
         public LeaderboardRecordData LeaderboardRecordData;
         public float DefaultScoreFontSize;
         public float DefaultNameFontSize;
+        public float DefaultRankFontSize;
     }
 
     [Serializable]
@@ -24,6 +25,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
         [SerializeField] public RawImage avatarRawImage;
         [SerializeField] public TMP_Text playerName;
         [SerializeField] public TMP_Text playerScore;
+        [SerializeField] public TMP_Text playerRank;
         [SerializeField] public Image recordBackground;
         [SerializeField] public LoaderSpinner loaderSpinner;
 
@@ -31,18 +33,21 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
         {
             playerName.text = data.name;
             playerScore.text = data.score.ToString();
+            playerRank.text = data.type;
             recordBackground.color = Utils.Utils.GetColorByRank(data.type);
             playerName.fontSize *= Utils.Utils.GetScaleByRank(data.type);
             playerScore.fontSize *= Utils.Utils.GetScaleByRank(data.type);
         }
 
-        public void Reset(float defaultScoreSize, float defaultNameSize)
+        public void Reset(float defaultScoreSize, float defaultNameSize, float defaultRankFontSize)
         {
             playerName.text = string.Empty;
             playerScore.text = string.Empty;
+            playerRank.text = string.Empty;
             recordBackground.color = Color.white;
             playerName.fontSize = defaultNameSize;
             playerScore.fontSize = defaultScoreSize;
+            playerRank.fontSize = defaultRankFontSize;
         }
 
         public void ToggleAvatarLoading(bool isLoading)
@@ -66,13 +71,14 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             Model.LeaderboardRecordData = leaderboardRecordData;
             Model.DefaultScoreFontSize = View.playerScore.fontSize;
             Model.DefaultNameFontSize = View.playerName.fontSize;
+            Model.DefaultRankFontSize = View.playerRank.fontSize;
             View.SetUp(leaderboardRecordData);
             View.ToggleAvatarLoading(true);
         }
 
         public void UnitReset()
         {
-            View.Reset(Model.DefaultScoreFontSize, Model.DefaultNameFontSize);
+            View.Reset(Model.DefaultScoreFontSize, Model.DefaultNameFontSize, Model.DefaultRankFontSize);
         }
 
         public void SetAvatar(Texture2D avatarTexture2D)

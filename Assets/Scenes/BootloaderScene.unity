@@ -568,7 +568,7 @@ MonoBehaviour:
   spinDuration: 1
   loops: -1
   easeType: 1
-  _targetRectTransform: {fileID: 1568282413}
+  targetRectTransform: {fileID: 1568282413}
 --- !u!114 &1568282415
 MonoBehaviour:
   m_ObjectHideFlags: 0
