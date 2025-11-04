@@ -29,5 +29,11 @@ namespace Module.Common.Scripts
             public static readonly float RANK_GOLDEN_SIZE = 1.6f;
             public static readonly float RANK_DIAMOND_SIZE = 1.8f;
         }
+        
+        public static class Scenes
+        {
+            public static readonly string APP_SCENE_NAME = "AppScene";
+
+        }
     }
 }
