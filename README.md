@@ -1,92 +1,94 @@
 # Unity Developer Test Task - Leaderboard Popup
 
-## Objective
+## Decription
 
-Your task is to create a simple leaderboard popup that reads a local JSON file in the Unity project from the Resources folder, parses the data, and displays it, along with player avatars that are downloaded as needed.
+This project is an implementation of a simple app that shows a leaderboard loaded from JSON file, parses and shows players data. Also downloaded avatars from server and caches locally.
 
-## Requirements
+## Packages and plugins in use
 
-- Use the [PopupManager](Assets/Scripts/SimplePopupManager/README.md) to open and close the popup.
-- Create a button that triggers the opening of the leaderboard popup.
-- The popup should be built using Unity's UI primitives and should fit well on all devices with a flexible scale.
-- The popup should contain a list view that shows the player's name, score, avatar, and player type.
-- Player type should be indicated by color and size (Diamond, Gold, Silver, Bronze, Default).
-- Load Player avatars after popup opened, during loading show "Loading" message on avatar place. Avatars caching will be considered a plus but not required.
-- The leaderboard popup should be closed when the close button on popup is clicked.
+- **Zenject** - framework for implementation of **DI**, **Event Bus pattern** (via Signals/Commands) and **Factory Pattern** (Zenject Factories + Unity Object Pool);
+- **DOTween** - package for simple and fast animations;
+- **Addressables** - package for assets organization and managment.
 
-### User Experience Requirements
-The code should be user experience-friendly:
- - Loading of the file and initialization of the popup should be done asynchronously to prevent blocking the main thread.
+## Modular system
+The project is dived in several **Modules**. Each **Module** is a folder with Assembly Definition file used to organize the codebase and promote modularity and reusability. Also improves compilation performance by ensuring Unity recompiles only the assemblies that have changed, rather than the entire project.
 
-### Extra Requirements
- - Think about how to access the `PopupManagerService`. Your solution should demonstrate good understanding of software architecture and design patterns. 
- - Maintain consistent code style throughout your scripts.
- - Write efficient and clean code that is easy to read and understand and not over-engineered.
+<img width="789" height="320" alt="image" src="https://github.com/user-attachments/assets/c350ac01-fc0a-4314-a757-f03607517ce1" />
 
-### Testing
-Please test your solution in different screen resolutions to ensure that the popup scales and displays correctly.
+# Modules
+## Module.Core
+Serves as the kernel of the application, defining the fundamental architectural patterns. It includes base installers (Launchers), an implementation of the MVC pattern with its core classes, base implementations of the Factory pattern, and the Event Bus system with Command and Signal abstractions. Additionally, it provides utility functions and UI helpers used across other modules.
+### CommandSignal
+Provides interfaces `ISignal`, `ICommand`, and `ICommandWithParameter` used for handling events within the Event Bus system.
+### Factory
+Provides the base class `PooledFactoryBase<T>` for implementing concrete factories with create and release APIs. Utilizes Zenject factories together with Unity’s ObjectPool for efficient object pooling.
+### Launcher
+Provides the base class `LauncherInstaller`, an extension of Zenject’s MonoInstaller, designed to streamline setup by separating the installation of Components, Signals, Factories, and Services.
+### MVC
+Defines the foundational classes for implementing the MVC pattern. The core class is `ComponentControllerBase<TModel, TView>`. To create an MVC component, a class should inherit from ComponentControllerBase and optionally define a Model (derived from `ModelBase`) and a View (derived from `ViewBase`).
+### UI
+Provides helper components for UI. 
+### Utils
+Provides assembly helpers and component exntentions.
+## Module.Common
+Serves as the 3rdParty assets and packages container and provides Constant variables (`GlobalConstants1 static` class).
+## Module.PopupService
+Serves as the codebase for popups initialization from Addressables system. Contains original PopupService with several modifications (explained later in the README).
+### Addressables
+Defines interfaces and base classes for instantiating GameObjects from Addressables system and automatic injection to Zenject DI container.
+### Launcher
+Provides a Launcher for installing all components, services and signals related to this **Module**.
+### PopupInitialization
+Contains original `IPopupInitialization` interface for initializing popups
+### Services
+Contains modified version of original `PopupManagerService` implementation of `IPopupManagerService`. Provides API for opening and closing popups from Addressables system with automatic injection.
+## Module.Bootloader
+The entry point of the application. Initializes core systems — currently includes a simple loading sequence with a 1-second delay, as no external SDKs or subsystems are required at startup.
+### CommandSignal
+Defines commands and signals used in this **Module**.
+### Controllers
+Defines MVC components used in this **Module**. `LoadingScreenController` - MVC component for showing the first screen in the app's entry point.
+### Launcher
+Provides a Launcher for installing all components, services and signals related to this **Module**.
+### Services
+Contains `BootloaderService` that manages the app's entry point, initializes all systems and loads main scene.
+## Module.App
+The main application module that contains all leaderboard-related codebase, prefabs and sprites.
+### CommandSignal
+Defines commands and signals used in this **Module**.
+### Controllers
+Defines MVC components used in this **Module**. 
+- `LeaderboardController` - MVC component for setting up and showing the leaderboard content;
+- -`LeaderboardRecordController` - MVC component for showing one single record of leaderboard, contains logic for displaying player data (player name, rank, score and avatar image).
+### Data
+Contains leaderboard related data structures
+### Factory
+Contains an inherited from `PooledFactoryBase` class `LeaderboardRecordPooledFactory` for spawning records in leaderboard.
+### Launcher
+Provides a Launcher for installing all components, services and signals related to this **Module**.
+### Services
+- `IAvatarCacheService` and it's `AvatarCacheService` implementation for caching avatars. When an avatar is requested, the service first checks the in-memory cache, then attempts to load it from disk (Application.persistentDataPath), and finally downloads it from the web if not found locally.
+- `LeaderboardDataService` is a service responsible for parsing JSON data.
+### Utils
+Contains a static `Utils` class for managing player rank (or `type` as defined in JSON structure) related data, such as retrieving font size and color based on rank.
 
-### Documentation
+# PopupManagerService modification
+The original implementation of Popup service was responsible for two things: instantiating the popup from Addressables and initializing it via `IPopupInitialize`. The method `OpenPopup` breaks SRP principle of SOLID since the initialization might be done by some other services, for example, the service that first needs to Inject the Addressable GO into the DI container, handle it's own initialization via `Zenject.IInitializable`. So it was decided to decouple the logic of this service by letting the PopupManagerService to first load the Addressable GO
+```C#
+var popup = await _loader.LoadAsync(name);
+```
+and then inject the popup into DI so Zenject's initialization is handled first
+```C#
+await _injector.Initialize(popup, param);
+```
+The `ZenjectPopupInitializer` implementation of `IAddressableInjection` handles the injection and only then `IPopupInitialize`'s implementation gets called
+```C#
+_container.InjectGameObject(popup);
 
-Please include a tiny `README.md` file with your submission, detailing the following:
-
-* How your solution works.
-* Any design choices or assumptions you made in your implementation.
-
-## Details
-
-The leaderboard JSON file located at [`Assets/Resources/Leaderboard.json`](Assets/Resources/Leaderboard.json) and have the following structure:
-```json
-    [
-      { 
-        "name": "Player 1", 
-        "score": 100, 
-        "avatar": "https://secure.gravatar.com/avatar/89f62265519c76c020aa0611b1423e28?s=80&d=identicon", 
-        "type": "Diamond" 
-      }
-    ]
+            var initComponents = popup.GetComponents<IPopupInitialization>();
+            foreach (var component in initComponents)
+                await component.Init(param);
 ```
 
-### JSON Protocol
 
-- `name`: The name of the player.
-- `score`: The score of the player.
-- `avatar`: The URL of the player's avatar. This should be downloaded and displayed as an image.
-- `type`: The type of the player (Diamond, Gold, Silver, Bronze, Default). This should affect the color and size of the leaderboard item.
 
-## Code Changes
-You are allowed to make changes to the `PopupManager` if necessary. However, any changes should be justified and improve the functionality or design of the system.
-
-## Submission
-Please submit your project as link and access to a git repository containing your project. Include all code, assets, and any other materials necessary to run the project.
-If git repository is private, please inform us about it and we provide our emails to grant access.
-I case git repository submission is not possible, please send us a .zip file with the project.
-
-## Evaluation Criteria
-
-Your submission will be evaluated on the following criteria:
-
-- Successful implementation of required features.
-- Code quality and style.
-- User experience.
-- Implementation of extras.
-- Documentation.
-
-## Questions
-
-If you have any questions about the task, please don't hesitate to ask.
-___
-
-Remember, this task is meant to test your understanding of Unity, C#, software architecture, and user experience considerations.
-
-**Any** information and tools available to you can be used to complete the task.
-
-### Good luck!
-
-## License
-
-© 2023 Sophun Games LTD. All rights reserved.
-
-All rights to the code and documentation in this repository belong to Sophun Games LTD. Any copying, distribution, or use without the explicit consent of Sophun Games LTD is prohibited. This code can only be used for the purpose of completing the task provided by Sophun Games LTD, and for no other purpose.
-
-Unauthorized use of this code or documentation could result in legal action taken by Sophun Games LTD.
