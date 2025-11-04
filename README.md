@@ -73,15 +73,15 @@ Provides a Launcher for installing all components, services and signals related 
 Contains a static `Utils` class for managing player rank (or `type` as defined in JSON structure) related data, such as retrieving font size and color based on rank.
 
 # PopupManagerService modification
-The original implementation of Popup service was responsible for two things: instantiating the popup from Addressables and initializing it via `IPopupInitialize`. The method `OpenPopup` breaks SRP principle of SOLID since the initialization might be done by some other services, for example, the service that first needs to Inject the Addressable GO into the DI container, handle it's own initialization via `Zenject.IInitializable`. So it was decided to decouple the logic of this service by letting the PopupManagerService to first load the Addressable GO
+The original implementation of Popup service was responsible for two things: instantiating the popup from Addressables and initializing it via `IPopupInitialize`. The service breaks SRP principle of SOLID since it should not be responsible for both instantiating AND initialization. Initialization might be done by some other services, for example, the service that first needs to inject the newly created object into the DI container and handle it's own initialization first via `Zenject.IInitializable`. So it was decided to decouple the logic of this service by letting the PopupManagerService to only load the Addressable GO
 ```C#
 var popup = await _loader.LoadAsync(name);
 ```
-and then inject the popup into DI so Zenject's initialization is handled first
+`OpenPopup` returns the popup GO and lets other service to handle initialization
 ```C#
 await _injector.Initialize(popup, param);
 ```
-The `ZenjectPopupInitializer` implementation of `IAddressableInjection` handles the injection and only then `IPopupInitialize`'s implementation gets called
+The `ZenjectPopupInitializer` implementation of `IAddressableInjection` handles the initialization, since it need to inject the popup to DI and call `Zenject.IInitializable` and only then `IPopupInitialize`'s implementation gets called with params
 ```C#
 _container.InjectGameObject(popup);
 
