@@ -8,22 +8,19 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Module.PopupService.Scripts.Addressable;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using Zenject;
 
-namespace SimplePopupManager
+namespace Module.PopupService.Scripts.Services
 {
     /// <summary>
     ///     Manages popups, providing functionality for opening, closing, and loading popups.
     /// </summary>
-    public class PopupManagerServiceService : IPopupManagerService
+    public class PopupManagerService : IPopupManagerService
     {
         private readonly IAddressableLoader _loader;
         private readonly IAddressableInjection _injector;
         private readonly Dictionary<string, GameObject> _popups = new();
 
-        public PopupManagerServiceService(IAddressableLoader loader, IAddressableInjection injector)
+        public PopupManagerService(IAddressableLoader loader, IAddressableInjection injector)
         {
             _loader = loader;
             _injector = injector;

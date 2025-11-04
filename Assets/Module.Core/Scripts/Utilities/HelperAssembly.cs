@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Module.Core.Utilities {
+namespace Module.Core.Scripts.Utilities {
     public partial class Helper {
         public static class Assembly {
             private static readonly Type[] AllTypes = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();

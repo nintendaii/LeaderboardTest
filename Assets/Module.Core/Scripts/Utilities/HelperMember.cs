@@ -1,7 +1,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Module.Core.Utilities {
+namespace Module.Core.Scripts.Utilities {
     public partial class Helper {
         public static class Member {
             public static string GetName<T>(Expression<Func<T>> memberAccess) {

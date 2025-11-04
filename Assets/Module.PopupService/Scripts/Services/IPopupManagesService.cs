@@ -4,9 +4,8 @@
 //of Sophun Games LTD is strictly prohibited and could be subject to legal action.
 
 using System.Threading.Tasks;
-using UnityEngine;
 
-namespace SimplePopupManager
+namespace Module.PopupService.Scripts.Services
 {
     public interface IPopupManagerService
     {

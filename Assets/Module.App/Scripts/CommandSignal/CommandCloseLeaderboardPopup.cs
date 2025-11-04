@@ -1,6 +1,6 @@
 using Module.App.Scripts.Factory;
 using Module.Common.Scripts;
-using Module.Core.CommandSignal;
+using Module.Core.Scripts.CommandSignal;
 using Zenject;
 
 namespace Module.App.Scripts.CommandSignal

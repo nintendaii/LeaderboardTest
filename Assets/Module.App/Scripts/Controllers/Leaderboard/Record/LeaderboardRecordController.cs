@@ -1,8 +1,8 @@
 using System;
 using Module.App.Scripts.Data;
-using Module.App.Scripts.Factory;
-using Module.App.Scripts.UI;
-using Module.Core.MVC;
+using Module.Core.Scripts.Factory;
+using Module.Core.Scripts.MVC;
+using Module.Core.Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,7 +61,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
     
     public class LeaderboardRecordController: ComponentControllerBase<UnitLeaderboardRecordModel, UnitLeaderboardRecordView>, IFactoryUnitResettable, IFactoryUnitInitializable<LeaderboardRecordData>
     {
-        public void InitializeUnit(LeaderboardRecordData leaderboardRecordData)
+        public void UnitInitialize(LeaderboardRecordData leaderboardRecordData)
         {
             Model.LeaderboardRecordData = leaderboardRecordData;
             Model.DefaultScoreFontSize = View.playerScore.fontSize;
@@ -70,7 +70,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             View.ToggleAvatarLoading(true);
         }
 
-        public void ResetUnit()
+        public void UnitReset()
         {
             View.Reset(Model.DefaultScoreFontSize, Model.DefaultNameFontSize);
         }

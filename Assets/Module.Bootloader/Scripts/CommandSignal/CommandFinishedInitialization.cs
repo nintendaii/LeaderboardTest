@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Module.Bootloader.Scripts.Controllers;
 using Module.Common.Scripts;
-using Module.Core.CommandSignal;
+using Module.Core.Scripts.CommandSignal;
 using UnityEngine.SceneManagement;
 using Zenject;
 

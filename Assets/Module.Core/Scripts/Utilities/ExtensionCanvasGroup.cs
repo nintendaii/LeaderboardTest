@@ -1,4 +1,4 @@
-namespace Module.Core.Utilities {
+namespace Module.Core.Scripts.Utilities {
     public static class ExtensionCanvasGroup {
         public static void SetActive(this UnityEngine.CanvasGroup canvasGroup, bool isActive) {
             canvasGroup.alpha = isActive ? 1f : 0f;

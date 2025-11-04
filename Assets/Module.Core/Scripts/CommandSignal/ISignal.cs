@@ -1,4 +1,4 @@
-namespace Module.Core.CommandSignal
+namespace Module.Core.Scripts.CommandSignal
 {
     public interface ISignal { }
 }

@@ -1,6 +1,6 @@
 using Module.Core.Scripts.Launcher;
 using Module.PopupService.Scripts.Addressable;
-using SimplePopupManager;
+using Module.PopupService.Scripts.Services;
 
 namespace Module.PopupService.Scripts.Launcher
 {
@@ -10,7 +10,7 @@ namespace Module.PopupService.Scripts.Launcher
         {
             base.InstallComponents();
             Container.Bind<IPopupManagerService>()
-                .To<PopupManagerServiceService>()
+                .To<PopupManagerService>()
                 .AsSingle();
             Container.Bind<IAddressableLoader>().
                 To<AddressablePopupLoader>().

@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Module.Core.MVC;
+using Module.Core.Scripts.MVC;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Module.App.Scripts.Factory
+namespace Module.Core.Scripts.Factory
 {
     public abstract class PooledFactoryBase<T> : ControllerMonoBase where T : ControllerMonoBase, IFactoryUnitResettable, IShowComponent, IHideComponent
     {
-        protected IObjectPool<T> _objectPool;
-        protected readonly List<T> _activeItems = new();
+        private IObjectPool<T> _objectPool;
+        private readonly List<T> _activeItems = new();
 
         public override void Initialize()
         {
@@ -22,7 +22,7 @@ namespace Module.App.Scripts.Factory
             base.Dispose();
         }
 
-        public virtual T CreateItem(Transform parent = null)
+        protected virtual T CreateItem(Transform parent = null)
         {
             var item = _objectPool.Get();
             _activeItems.Add(item);
@@ -34,14 +34,14 @@ namespace Module.App.Scripts.Factory
             return item;
         }
 
-        public virtual void ReleaseItem(T item)
+        protected virtual void ReleaseItem(T item)
         {
             _objectPool.Release(item);
-            item.ResetUnit();
+            item.UnitReset();
         }
 
         /// <summary>
-        /// Releases pooled objects for caching
+        /// Releases pooled objects for caching. E.g. if the Parent is destroyed but we still keep the pooled object in memory so next time Parent opens we reuse them
         /// </summary>
         public virtual void ReleaseContainer()
         {

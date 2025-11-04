@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Module.Core.Utilities {
+namespace Module.Core.Scripts.Utilities {
     public static class ExtensionAssembly {
         public static bool Contains<T>(this Type[] types) {
             return types.Contains(typeof(T));

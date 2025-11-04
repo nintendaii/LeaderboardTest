@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Module.App.Scripts.Controllers.Leaderboard;
 using Module.App.Scripts.Data;
 using Module.Common.Scripts;
 using UnityEngine;
 
 namespace Module.App.Scripts.Services
 {
-    public class LeaderboardService
+    public class LeaderboardDataService
     {
         public async Task<List<LeaderboardRecordData>> LoadAsync()
         {
@@ -23,7 +22,7 @@ namespace Module.App.Scripts.Services
 
             try
             {
-                var wrapper = JsonUtility.FromJson<Wrapper>(textAsset.text);
+                var wrapper = JsonUtility.FromJson<LeaderboardDataWrapper>(textAsset.text);
                 return wrapper?.leaderboard ?? new List<LeaderboardRecordData>();
             }
             catch (Exception e)
@@ -34,7 +33,7 @@ namespace Module.App.Scripts.Services
         }
 
         [Serializable]
-        private class Wrapper
+        private class LeaderboardDataWrapper
         {
             public List<LeaderboardRecordData> leaderboard;
         }

@@ -1,6 +1,6 @@
 using System;
 
-namespace Module.Core.Utilities {
+namespace Module.Core.Scripts.Utilities {
     public static class ExtensionString {
         public static string FormatNumber(this int value) {
             if (value >= 100000)

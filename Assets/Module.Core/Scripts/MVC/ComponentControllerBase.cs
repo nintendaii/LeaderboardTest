@@ -1,8 +1,8 @@
 using System;
-using Module.Core.Utilities;
+using Module.Core.Scripts.Utilities;
 using UnityEngine;
 
-namespace Module.Core.MVC {
+namespace Module.Core.Scripts.MVC {
     public abstract class ComponentControllerBase : ComponentControllerBase<ModelBase, ViewBase> { }
     
     public abstract class ComponentControllerBase<TModel, TView> : ControllerMonoBase, IHideComponent, IShowComponent where TModel : ModelBase where TView : ViewBase {

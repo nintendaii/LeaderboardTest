@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using SimplePopupManager;
+using Module.PopupService.Scripts.PopupInitialization;
 using UnityEngine;
 using Zenject;
 

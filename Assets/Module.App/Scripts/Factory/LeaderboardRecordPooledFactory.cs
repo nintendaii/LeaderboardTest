@@ -1,5 +1,6 @@
 using Module.App.Scripts.Controllers.Leaderboard.Record;
 using Module.App.Scripts.Data;
+using Module.Core.Scripts.Factory;
 using UnityEngine;
 using Zenject;
 
@@ -20,7 +21,7 @@ namespace Module.App.Scripts.Factory
         public LeaderboardRecordController CreateRecord(LeaderboardRecordData data, Transform parent)
         {
             var record = CreateItem(parent);
-            record.InitializeUnit(data);
+            record.UnitInitialize(data);
             return record;
         }
     }

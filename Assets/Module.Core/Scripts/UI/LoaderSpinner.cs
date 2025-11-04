@@ -1,19 +1,16 @@
-using Module.Core.MVC;
+using DG.Tweening;
+using Module.Core.Scripts.MVC;
+using UnityEngine;
 
-namespace Module.App.Scripts.UI
+namespace Module.Core.Scripts.UI
 {
-    using DG.Tweening;
-    using UnityEngine;
-    using UnityEngine.UI;
-
-    [RequireComponent(typeof(Image))]
     public class LoaderSpinner : MonoBehaviour, IHideComponent, IShowComponent
     {
         [Header("Spin Settings")]
         [SerializeField] private float spinDuration = 1f;
         [SerializeField] private int loops = -1; // -1 = infinite
         [SerializeField] private Ease easeType = Ease.Linear;
-        [SerializeField] private RectTransform _targetRectTransform;
+        [SerializeField] private RectTransform targetRectTransform;
         private Tween _spinTween;
 
         /// <summary>
@@ -24,7 +21,7 @@ namespace Module.App.Scripts.UI
             ShowComponent();
             StopTwin();
 
-            _spinTween = _targetRectTransform
+            _spinTween = targetRectTransform
                 .DORotate(new Vector3(0, 0, 360), spinDuration, RotateMode.FastBeyond360)
                 .SetLoops(loops, LoopType.Restart)
                 .SetEase(easeType)

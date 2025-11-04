@@ -1,5 +1,5 @@
-using Module.Core.CommandSignal;
-using SimplePopupManager;
+using Module.Core.Scripts.CommandSignal;
+using Module.PopupService.Scripts.Services;
 using Zenject;
 
 namespace Module.App.Scripts.CommandSignal
@@ -14,5 +14,4 @@ namespace Module.App.Scripts.CommandSignal
             await _popupManagerService.OpenPopup(param.PopupName, param.Parameters);
         }
     }
-
 }

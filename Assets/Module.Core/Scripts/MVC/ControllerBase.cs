@@ -1,4 +1,4 @@
-namespace Module.Core.MVC {
+namespace Module.Core.Scripts.MVC {
     public abstract class ControllerBase : Zenject.IInitializable, System.IDisposable {
         protected Zenject.DiContainer Container { get; private set; }
         protected Zenject.SignalBus SignalBus { get; private set; }

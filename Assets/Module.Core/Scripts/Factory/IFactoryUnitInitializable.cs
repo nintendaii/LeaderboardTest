@@ -1,7 +1,7 @@
-namespace Module.App.Scripts.Factory
+namespace Module.Core.Scripts.Factory
 {
     public interface IFactoryUnitInitializable<TData>
     {
-        void InitializeUnit(TData data);
+        void UnitInitialize(TData data);
     }
 }

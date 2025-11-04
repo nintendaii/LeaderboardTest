@@ -1,4 +1,4 @@
-using Module.Core.CommandSignal;
+using Module.Core.Scripts.CommandSignal;
 
 namespace Module.App.Scripts.CommandSignal
 {

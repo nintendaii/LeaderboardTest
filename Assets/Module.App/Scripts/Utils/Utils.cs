@@ -3,7 +3,7 @@ using Module.App.Scripts.Data;
 using Module.Common.Scripts;
 using UnityEngine;
 
-namespace Module.App.Scripts.Controllers.Leaderboard.Utils
+namespace Module.App.Scripts.Utils
 {
     public static class Utils
     {

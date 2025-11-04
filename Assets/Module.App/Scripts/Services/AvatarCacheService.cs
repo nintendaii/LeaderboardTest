@@ -10,21 +10,22 @@ namespace Module.App.Scripts.Services
 
     public class AvatarCacheService : IAvatarCacheService
     {
-        // In-memory cache: URL → Texture2D
         private readonly Dictionary<string, Texture2D> _cache = new();
 
-        // Optional: persistent cache path (survives app restarts)
         private readonly string _cacheFolder = GlobalConstants.Resources.AVATAR_CACHE_FOLDER_PATH;
 
+        /// <summary>
+        /// Gets the Avatar by url. If the avatar is not cached in memory -> tries to load from disk. If not cached in disk -> loads by Web request
+        /// </summary>
+        /// <param name="url">Url of the avatar</param>
+        /// <returns></returns>
         public async Task<Texture2D> GetAvatarAsync(string url)
         {
             if (string.IsNullOrEmpty(url))
                 return null;
 
-            // 1. Try memory cache
             if (_cache.TryGetValue(url, out var cachedTexture)) return cachedTexture;
 
-            // 2. Try disk cache
             var diskTexture = await LoadFromDiskAsync(url);
             if (diskTexture != null)
             {
@@ -32,7 +33,6 @@ namespace Module.App.Scripts.Services
                 return diskTexture;
             }
 
-            // 3. Download from web
             var downloadedTexture = await DownloadTextureAsync(url);
             if (downloadedTexture != null)
             {

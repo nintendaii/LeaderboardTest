@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using DG.Tweening;
-using Module.App.Scripts.UI;
-using Module.Core.MVC;
+using Module.Core.Scripts.MVC;
+using Module.Core.Scripts.UI;
 using UnityEngine;
 
 namespace Module.Bootloader.Scripts.Controllers

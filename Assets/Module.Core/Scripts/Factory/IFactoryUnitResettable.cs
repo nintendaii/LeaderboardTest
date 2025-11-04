@@ -1,7 +1,7 @@
-namespace Module.App.Scripts.Factory
+namespace Module.Core.Scripts.Factory
 {
     public interface IFactoryUnitResettable
     {
-        void ResetUnit();
+        void UnitReset();
     }
 }

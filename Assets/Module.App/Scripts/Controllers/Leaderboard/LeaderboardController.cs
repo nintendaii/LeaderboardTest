@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Module.App.Scripts.CommandSignal;
 using Module.App.Scripts.Data;
-using Module.Common.Scripts;
-using Module.Core.MVC;
-using SimplePopupManager;
+using Module.Core.Scripts.MVC;
+using Module.PopupService.Scripts.PopupInitialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,20 +27,17 @@ namespace Module.App.Scripts.Controllers.Leaderboard
     {
         public override void Initialize()
         {
-            Debug.Log("Initialized");
             base.Initialize();
             View.closeButton.onClick.AddListener(ViewOnOnCloseEvent);
         }
         
         private void ViewOnOnCloseEvent()
         {
-            Debug.Log("InCloseEvent");
             SignalBus.Fire(new SignalCloseLeaderboardPopup());
         }
 
         public override void Dispose()
         {
-            Debug.Log("Dispose");
             base.Dispose();
             View.closeButton.onClick.RemoveListener(ViewOnOnCloseEvent);
         }

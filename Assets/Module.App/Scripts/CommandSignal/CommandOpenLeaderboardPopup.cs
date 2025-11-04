@@ -3,7 +3,7 @@ using Module.App.Scripts.Data;
 using Module.App.Scripts.Factory;
 using Module.App.Scripts.Services;
 using Module.Common.Scripts;
-using Module.Core.CommandSignal;
+using Module.Core.Scripts.CommandSignal;
 using Zenject;
 
 namespace Module.App.Scripts.CommandSignal
@@ -11,12 +11,12 @@ namespace Module.App.Scripts.CommandSignal
     public class CommandOpenLeaderboardPopup: ICommand
     {
         [Inject] private SignalBus _signalBus;
-        [Inject] private LeaderboardService _leaderboardService;
+        [Inject] private LeaderboardDataService _leaderboardDataService;
         [Inject] private LeaderboardRecordPooledFactory _leaderboardRecordPooledFactory;
         
         public async void Execute()
         {
-            var data = await _leaderboardService.LoadAsync();
+            var data = await _leaderboardDataService.LoadAsync();
             SortLeaderboard(data);
             _signalBus.Fire(new SignalOpenPopup(GlobalConstants.Addressable.LEADERBOARD_ADDRESSABLE_PATH, data));
         }

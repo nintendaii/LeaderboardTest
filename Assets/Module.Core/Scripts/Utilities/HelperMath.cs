@@ -1,8 +1,6 @@
-using System;
-using System.Linq.Expressions;
 using UnityEngine.Assertions;
 
-namespace Module.Core.Utilities {
+namespace Module.Core.Scripts.Utilities {
     public partial class Helper {
         public static class Math {
             public static float GetPercent01FromValueOfRange(float value, float min, float max) {

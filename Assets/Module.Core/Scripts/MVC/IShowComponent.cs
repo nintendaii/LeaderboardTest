@@ -1,4 +1,4 @@
-namespace Module.Core.MVC
+namespace Module.Core.Scripts.MVC
 {
     public interface IShowComponent
     {

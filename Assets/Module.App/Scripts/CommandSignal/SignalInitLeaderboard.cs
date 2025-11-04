@@ -1,4 +1,4 @@
-using Module.Core.CommandSignal;
+using Module.Core.Scripts.CommandSignal;
 using UnityEngine;
 
 namespace Module.App.Scripts.CommandSignal

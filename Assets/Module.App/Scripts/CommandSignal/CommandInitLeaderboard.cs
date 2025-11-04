@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Module.App.Scripts.Controllers.Leaderboard.Record;
 using Module.App.Scripts.Data;
 using Module.App.Scripts.Factory;
 using Module.App.Scripts.Services;
-using Module.Core.CommandSignal;
+using Module.Core.Scripts.CommandSignal;
 using UnityEngine;
 using Zenject;
 

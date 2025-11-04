@@ -1,12 +1,10 @@
-namespace Module.Core.MVC {
+namespace Module.Core.Scripts.MVC {
     public abstract class ControllerMonoBase : UnityEngine.MonoBehaviour, Zenject.IInitializable, System.IDisposable {
         public UnityEngine.Transform Transform { get; private set; }
         public UnityEngine.GameObject GameObject { get; private set; }
         
         protected Zenject.DiContainer Container { get; private set; }
         protected Zenject.SignalBus SignalBus { get; private set; }
-        
-        public virtual void CheckAssert() { }
         
         public virtual void Initialize() { }
 
@@ -23,8 +21,6 @@ namespace Module.Core.MVC {
 
             Transform = transform;
             GameObject = gameObject;
-
-            CheckAssert();
             Initialize();
         }
 

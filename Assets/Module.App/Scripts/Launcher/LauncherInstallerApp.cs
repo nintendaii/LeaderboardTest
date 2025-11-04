@@ -1,5 +1,4 @@
 using Module.App.Scripts.CommandSignal;
-using Module.App.Scripts.Controllers.Leaderboard;
 using Module.App.Scripts.Controllers.Leaderboard.Record;
 using Module.App.Scripts.Controllers.MainMenu;
 using Module.App.Scripts.Factory;
@@ -24,7 +23,7 @@ namespace Module.App.Scripts.Launcher
         protected override void InstallServices()
         {
             base.InstallServices();
-            Container.Bind<LeaderboardService>().AsSingle();
+            Container.Bind<LeaderboardDataService>().AsSingle();
             Container.Bind<IAvatarCacheService>()
                 .To<AvatarCacheService>()
                 .AsSingle();

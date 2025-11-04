@@ -1,5 +1,5 @@
 using Module.Bootloader.Scripts.CommandSignal;
-using Module.Core.MVC;
+using Module.Core.Scripts.MVC;
 
 namespace Module.Bootloader.Scripts.Services
 {

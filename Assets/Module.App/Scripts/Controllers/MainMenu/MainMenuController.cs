@@ -1,6 +1,6 @@
 using System;
 using Module.App.Scripts.CommandSignal;
-using Module.Core.MVC;
+using Module.Core.Scripts.MVC;
 using UnityEngine;
 using UnityEngine.UI;
 
