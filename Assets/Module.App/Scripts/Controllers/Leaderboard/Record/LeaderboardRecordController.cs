@@ -6,7 +6,6 @@ using Module.Core.Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Module.App.Scripts.Controllers.Leaderboard.Record
 {
@@ -87,9 +86,5 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             View.ToggleAvatarLoading(false);
             View.avatarRawImage.texture = avatarTexture2D;
         }
-    }
-    
-    public class UnitLeaderboardRecordFactory : PlaceholderFactory<LeaderboardRecordController>
-    {
     }
 }
