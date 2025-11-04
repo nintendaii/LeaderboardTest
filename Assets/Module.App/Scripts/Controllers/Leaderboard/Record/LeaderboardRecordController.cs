@@ -37,6 +37,7 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
             recordBackground.color = Utils.Utils.GetColorByRank(data.type);
             playerName.fontSize *= Utils.Utils.GetScaleByRank(data.type);
             playerScore.fontSize *= Utils.Utils.GetScaleByRank(data.type);
+            playerRank.fontSize *= Utils.Utils.GetScaleByRank(data.type);
         }
 
         public void Reset(float defaultScoreSize, float defaultNameSize, float defaultRankFontSize)

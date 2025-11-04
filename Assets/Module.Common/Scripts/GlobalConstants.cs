@@ -24,10 +24,10 @@ namespace Module.Common.Scripts
             public static readonly Color RANK_DIAMON_COLOR = new Color(0.18f, 0.8f, 0.94f);
 
             public static readonly float RANK_DEFAULT_SIZE = 1f;
-            public static readonly float RANK_BRONZE_SIZE = 1.2f;
-            public static readonly float RANK_SILVER_SIZW = 1.4f;
-            public static readonly float RANK_GOLDEN_SIZE = 1.6f;
-            public static readonly float RANK_DIAMOND_SIZE = 1.8f;
+            public static readonly float RANK_BRONZE_SIZE = 1.1f;
+            public static readonly float RANK_SILVER_SIZW = 1.3f;
+            public static readonly float RANK_GOLDEN_SIZE = 1.5f;
+            public static readonly float RANK_DIAMOND_SIZE = 1.7f;
         }
         
         public static class Scenes

@@ -13,38 +13,37 @@ namespace Module.Bootloader.Scripts.Controllers
         [SerializeField] public LoaderSpinner spinner;
         [SerializeField] public CanvasGroup canvasGroup;
 
+        private Tween _fadeTween;
         public void Reset()
         {
             canvasGroup.alpha = 1f;
         }
 
-        public async Task Fade(float duration, Action onComplete = null)
+        public async Task Fade(float duration)
         {
             if (canvasGroup == null)
             {
                 Debug.LogError("CanvasGroup is null!");
-                onComplete?.Invoke();
                 return;
             }
 
-            var tween = canvasGroup.DOFade(0f, duration)
-                .OnComplete(() =>
-                {
-                    onComplete?.Invoke();
-                });
+            _fadeTween?.Kill();
+            _fadeTween = null;
 
-            while (tween.IsActive() && !tween.IsComplete())
+            _fadeTween = canvasGroup.DOFade(0f, duration)
+                .SetAutoKill(false);
+
+            while (_fadeTween.IsActive() && !_fadeTween.IsComplete())
                 await Task.Yield();
 
-            if (tween.IsComplete())
-                onComplete?.Invoke();
+            _fadeTween?.Kill();
+            _fadeTween = null;
         }
     }
     public class LoadingScreenController: ComponentControllerBase<ModelBase, LoadingScreenControllerView>
     {
-        public override void Initialize()
+        private void Start()
         {
-            base.Initialize();
             StartSpin();
         }
 
