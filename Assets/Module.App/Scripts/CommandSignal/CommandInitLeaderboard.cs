@@ -30,7 +30,6 @@ namespace Module.App.Scripts.CommandSignal
             {
                 var record = _leaderboardRecordPooledFactory.CreateRecord(d, param.ParentTransform);
                 _recordDataDictionary[d] = record;
-                
             }
 
             LoadAvatars();

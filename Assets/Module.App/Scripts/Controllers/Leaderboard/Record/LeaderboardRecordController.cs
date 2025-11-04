@@ -1,6 +1,7 @@
 using System;
 using Module.App.Scripts.Data;
 using Module.App.Scripts.Factory;
+using Module.App.Scripts.UI;
 using Module.Core.MVC;
 using TMPro;
 using UnityEngine;
@@ -21,10 +22,10 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
     public class UnitLeaderboardRecordView : ViewBase
     {
         [SerializeField] public RawImage avatarRawImage;
-        [SerializeField] public Image loaderImage;
         [SerializeField] public TMP_Text playerName;
         [SerializeField] public TMP_Text playerScore;
         [SerializeField] public Image recordBackground;
+        [SerializeField] public LoaderSpinner loaderSpinner;
 
         public void SetUp(LeaderboardRecordData data)
         {
@@ -46,7 +47,14 @@ namespace Module.App.Scripts.Controllers.Leaderboard.Record
 
         public void ToggleAvatarLoading(bool isLoading)
         {
-            loaderImage.enabled = isLoading;
+            if (isLoading)
+            {
+                loaderSpinner.StartLoading();
+            }
+            else
+            {
+                loaderSpinner.FinishLoading();
+            }
             avatarRawImage.enabled = !isLoading;
         }
     }
