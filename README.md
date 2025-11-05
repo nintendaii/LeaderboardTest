@@ -13,7 +13,7 @@ This project is an implementation of a simple app that shows a leaderboard loade
 ## Modular system
 The project is dived in several **Modules**. Each **Module** is a folder with Assembly Definition file used to organize the codebase and promote modularity and reusability. Also improves compilation performance by ensuring Unity recompiles only the assemblies that have changed, rather than the entire project.
 
-<img width="789" height="320" alt="image" src="https://github.com/user-attachments/assets/c350ac01-fc0a-4314-a757-f03607517ce1" />
+<img width="942" height="525" alt="Screenshot 2025-11-05 at 09 26 12" src="https://github.com/user-attachments/assets/56073997-b47f-4a90-8ff6-69f7ff4b9f02" />
 
 # Modules
 ## Module.Core
