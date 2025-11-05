@@ -2,7 +2,7 @@
 
 ## Decription
 
-This project is an implementation of a simple app that shows a leaderboard loaded from JSON file, parses and shows players data. Also downloaded avatars from server and caches locally.
+This project is an implementation of a simple app that shows a leaderboard loaded from JSON file, parses and shows players data. Also downloades avatars from server and caches locally.
 
 ## Packages and plugins in use
 
