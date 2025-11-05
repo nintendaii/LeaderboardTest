@@ -31,7 +31,7 @@ Provides helper components for UI.
 ### Utils
 Provides assembly helpers and component exntentions.
 ## Module.Common
-Serves as the 3rdParty assets and packages container and provides Constant variables (`GlobalConstants1 static` class).
+Serves as the 3rdParty assets and packages container and provides constant variables (`GlobalConstants` static class).
 ## Module.PopupService
 Serves as the codebase for popups initialization from Addressables system. Contains original PopupService with several modifications (explained later in the README).
 ### Addressables
@@ -41,13 +41,14 @@ Provides a Launcher for installing all components, services and signals related 
 ### PopupInitialization
 Contains original `IPopupInitialization` interface for initializing popups
 ### Services
-Contains modified version of original `PopupManagerService` implementation of `IPopupManagerService`. Provides API for opening and closing popups from Addressables system with automatic injection.
+Contains modified version of original `PopupManagerService` implementation of `IPopupManagerService`. Provides API for opening and closing popups from Addressables system.
 ## Module.Bootloader
 The entry point of the application. Initializes core systems — currently includes a simple loading sequence with a 1-second delay, as no external SDKs or subsystems are required at startup.
 ### CommandSignal
 Defines commands and signals used in this **Module**.
 ### Controllers
-Defines MVC components used in this **Module**. `LoadingScreenController` - MVC component for showing the first screen in the app's entry point.
+Defines MVC components used in this **Module**. 
+- `LoadingScreenController` - MVC component for showing the first screen in the app's entry point.
 ### Launcher
 Provides a Launcher for installing all components, services and signals related to this **Module**.
 ### Services
@@ -58,12 +59,12 @@ The main application module that contains all leaderboard-related codebase, pref
 Defines commands and signals used in this **Module**.
 ### Controllers
 Defines MVC components used in this **Module**. 
-- `LeaderboardController` - MVC component for setting up and showing the leaderboard content;
-- -`LeaderboardRecordController` - MVC component for showing one single record of leaderboard, contains logic for displaying player data (player name, rank, score and avatar image).
+- `LeaderboardController` - MVC component for setting up and showing the leaderboard component;
+- `LeaderboardRecordController` - MVC component for showing one single record of leaderboard, contains logic for displaying player data (player name, rank, score and avatar image).
 ### Data
 Contains leaderboard related data structures
 ### Factory
-Contains an inherited from `PooledFactoryBase` class `LeaderboardRecordPooledFactory` for spawning records in leaderboard.
+Contains an inherited from `PooledFactoryBase` class `LeaderboardRecordPooledFactory` for spawning and managing the lifetime of records in the leaderboard.
 ### Launcher
 Provides a Launcher for installing all components, services and signals related to this **Module**.
 ### Services
@@ -77,7 +78,7 @@ The original implementation of Popup service was responsible for two things: ins
 ```C#
 var popup = await _loader.LoadAsync(name);
 ```
-`OpenPopup` returns the popup GO and lets other service to handle initialization
+`OpenPopup` method returns the `popup` GO and lets other service to handle initialization
 ```C#
 await _injector.Initialize(popup, param);
 ```
@@ -85,7 +86,7 @@ The `ZenjectPopupInitializer` implementation of `IAddressableInjection` handles 
 ```C#
 _container.InjectGameObject(popup);
 
-            var initComponents = popup.GetComponents<IPopupInitialization>();
+var initComponents = popup.GetComponents<IPopupInitialization>();
             foreach (var component in initComponents)
                 await component.Init(param);
 ```
